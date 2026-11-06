@@ -1,0 +1,8 @@
+resources:
+  jobs:
+    intro_to_databricks:
+      name: intro_to_databricks
+      tasks:
+        - task_key: tour
+          notebook_task:
+            notebook_path: ../notebooks/intro_to_databricks.py

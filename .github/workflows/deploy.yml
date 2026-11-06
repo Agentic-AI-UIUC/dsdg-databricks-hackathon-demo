@@ -8,7 +8,7 @@ on:
       run:
         description: Job to run after deploying
         type: choice
-        options: [none, end_to_end_demo]
+        options: [none, intro_to_databricks]
         default: none
 
 concurrency: databricks-deploy

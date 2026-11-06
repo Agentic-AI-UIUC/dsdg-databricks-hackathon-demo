@@ -1,20 +1,9 @@
-# Databricks Asset Bundle: `databricks bundle deploy` uploads the notebooks + src/ and creates the jobs.
+# Databricks Asset Bundle: `databricks bundle deploy` uploads the notebook and creates its serverless job.
 bundle:
   name: dsdg-databricks-hackathon-demo
 
 include:
   - resources/*.yml
-
-variables:
-  catalog:
-    description: Unity Catalog catalog (Free Edition default is "workspace")
-    default: workspace
-  schema:
-    description: Schema for tables and the registered model
-    default: default
-  volume:
-    description: Volume for the demo sample data and submission.csv (keep competition files elsewhere)
-    default: demo_sample
 
 targets:
   dev:
