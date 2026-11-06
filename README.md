@@ -44,12 +44,22 @@ databricks bundle run end_to_end_demo    # runs it and streams the status
 The job shows up under **Jobs & Pipelines** as `[dev <you>] end_to_end_demo`.
 
 ### 3. CD with GitHub Actions (deploy on every push)
+
+> [!IMPORTANT]
+> The workflow can't reach your workspace until you add **two repository secrets**. Without them the
+> **Deploy to Databricks** run fails at "Check secrets" (a red ❌ on a fresh copy is expected until you do this).
+
 1. Click **Use this template** to make your own copy of this repo.
-2. In Databricks: **Settings ➜ Developer ➜ Access tokens ➜ Generate new token**.
-3. In your GitHub repo: **Settings ➜ Secrets and variables ➜ Actions**, add
-   - `DATABRICKS_HOST`: your workspace URL, e.g. `https://dbc-xxxx.cloud.databricks.com`
-   - `DATABRICKS_TOKEN`: the token from step 2
-4. Push to `main`. The **Deploy to Databricks** workflow validates and deploys the bundle.
+2. In Databricks: **Settings ➜ Developer ➜ Access tokens ➜ Generate new token**. Copy it; it's shown once.
+3. In your GitHub repo: **Settings ➜ Secrets and variables ➜ Actions ➜ New repository secret**, and add both:
+
+   | Name | Value |
+   |---|---|
+   | `DATABRICKS_HOST` | your workspace URL, e.g. `https://dbc-xxxx.cloud.databricks.com` |
+   | `DATABRICKS_TOKEN` | the token from step 2 |
+
+   Treat the token like a password: never paste it into code, a notebook, or a commit.
+4. Push to `main` (or **Actions ➜ Deploy to Databricks ➜ Run workflow**). The workflow validates and deploys the bundle.
    To also run the job, open **Actions ➜ Deploy to Databricks ➜ Run workflow** and choose `end_to_end_demo`.
 
 ## Local development (optional)
