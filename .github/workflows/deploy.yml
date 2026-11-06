@@ -1,0 +1,47 @@
+name: Deploy to Databricks
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      run:
+        description: Job to run after deploying
+        type: choice
+        options: [none, end_to_end_demo]
+        default: none
+
+concurrency: databricks-deploy
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+      DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check secrets
+        run: |
+          if [ -z "$DATABRICKS_HOST" ] || [ -z "$DATABRICKS_TOKEN" ]; then
+            echo "::error::Add DATABRICKS_HOST and DATABRICKS_TOKEN under Settings > Secrets and variables > Actions (see README)."
+            exit 1
+          fi
+
+      - uses: astral-sh/setup-uv@v6
+
+      - name: Lint
+        run: uvx ruff check
+
+      - uses: databricks/setup-cli@main
+
+      - name: Validate bundle
+        run: databricks bundle validate
+
+      - name: Deploy bundle
+        run: databricks bundle deploy
+
+      - name: Run job
+        if: github.event_name == 'workflow_dispatch' && inputs.run != 'none'
+        run: databricks bundle run ${{ inputs.run }}
