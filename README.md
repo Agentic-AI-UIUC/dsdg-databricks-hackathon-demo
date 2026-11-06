@@ -63,9 +63,10 @@ uvx ruff check     # the lint step CI runs before every deploy
 
 ## Apply it to your hackathon data
 
-Upload your files to the volume, then reuse the patterns from the notebook:
+The demo keeps its sample data in its own volume (`demo_sample`), so put your files in a separate one, then reuse the patterns from the notebook:
 
 ```bash
+databricks volumes create workspace default hackathon MANAGED
 databricks fs cp news.csv dbfs:/Volumes/workspace/default/hackathon/
 ```
 
@@ -81,7 +82,7 @@ databricks fs cp news.csv dbfs:/Volumes/workspace/default/hackathon/
 
 ## If it breaks
 
-- **`FileNotFoundError` / volume errors**: the notebook creates `workspace.default.hackathon` and writes the sample data itself. Check the `catalog` / `schema` / `volume` widgets at the top.
+- **`FileNotFoundError` / volume errors**: the notebook creates `workspace.default.demo_sample` and writes the sample data itself. Check the `catalog` / `schema` / `volume` widgets at the top.
 - **`ModuleNotFoundError: demo_utils`**: re-run the `%pip install ..` cell, and open the notebook from the Git folder or bundle so `pyproject.toml` and `src/` sit next to `notebooks/`.
 - **MLflow / Unity Catalog register error**: re-run from the `%pip install` cell; the restart must happen before anything imports MLflow.
 - **AI Functions step prints "unavailable"**: that's the built-in fallback, and the rest still runs. Try again in a minute or switch `AI_MODEL`.

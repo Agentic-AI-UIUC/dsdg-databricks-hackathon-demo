@@ -13,8 +13,8 @@ variables:
     description: Schema for tables and the registered model
     default: default
   volume:
-    description: Volume that holds train.csv / test.csv / submission.csv
-    default: hackathon
+    description: Volume for the demo sample data and submission.csv (keep competition files elsewhere)
+    default: demo_sample
 
 targets:
   dev:

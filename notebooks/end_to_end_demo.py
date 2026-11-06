@@ -28,7 +28,7 @@ dbutils.library.restartPython()
 # Widgets let a Databricks Job (or the bundle) pass these in; defaults match Free Edition.
 dbutils.widgets.text("catalog", "workspace")
 dbutils.widgets.text("schema", "default")
-dbutils.widgets.text("volume", "hackathon")
+dbutils.widgets.text("volume", "demo_sample")
 CATALOG, SCHEMA, VOLUME = (dbutils.widgets.get(k) for k in ("catalog", "schema", "volume"))
 
 ID, TARGET, DATE = "shipment_id", "is_delayed", "order_date"
