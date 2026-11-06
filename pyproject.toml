@@ -4,6 +4,7 @@ version = "0.1.0"
 description = "End-to-end Databricks demo: Delta, AI Functions, MLflow, Unity Catalog, Spark scoring"
 readme = "README.md"
 requires-python = ">=3.10"
+license = "MIT"
 # Spark, pandas and scikit-learn come with Databricks serverless; these are the extras the notebook installs.
 dependencies = [
     "mlflow>=3.1",
